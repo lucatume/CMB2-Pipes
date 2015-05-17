@@ -15,13 +15,13 @@ class TAD_Pipe_PostPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeIn
 		global $wpdb;
 		$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET {$this->target} = %s WHERE ID = {$args['id']}", $args['value'] ) );
 
-		// do override
-		return true;
+		// do override if sync, let run if write
+		return $this->direction == '>' ? $override : true;
 	}
 
 	public function value( $override, $object_id, array $args, CMB2_Field $field ) {
 		if ( ! in_array( $this->direction, array( '<', '<>' ) ) ) {
-			return;
+			return $override;
 		}
 
 		global $wpdb;
@@ -32,7 +32,7 @@ class TAD_Pipe_PostPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeIn
 
 	public function remove( $override, array $args, array $field_args, CMB2_Field $field ) {
 		if ( ! in_array( $this->direction, array( '>', '<>' ) ) ) {
-			return;
+			return $override;
 		}
 
 		global $wpdb;
