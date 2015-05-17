@@ -1,0 +1,42 @@
+{
+  "name": "lucatume/cmb2-pipes",
+  "description": "Easy meta field hijacking for the Custom Meta Boxes 2 plugin.",
+  "type": "wordpress-plugin",
+  "license": "GPL 2.0",
+  "authors": [
+    {
+      "name": "Luca Tumedei",
+      "email": "luca@theaveragedev.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/lucatume/args"
+    }
+  ],
+  "require": {
+    "xrstf/composer-php52": "dev-default",
+    "lucatume/args": "~0.1.9"
+  },
+  "require-dev": {
+    "lucatume/wp-browser": "dev-master"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+    ],
+    "post-update-cmd": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+    ],
+    "post-autoload-dump": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+    ]
+  },
+  "autoload": {
+    "psr-0": {
+      "TAD_Pipe_": "src/"
+    }
+  }
+}

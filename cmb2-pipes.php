@@ -9,4 +9,8 @@
  * License: GPL 2.0
  */
 
+include dirname(__FILE__) . '/vendor/autoload_52.php';
+
+include 'src/functions.php';
+
 include 'sample-functions.php';
