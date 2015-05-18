@@ -9,9 +9,8 @@ class TAD_Pipe_PostPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeIn
 
 	public function save( $override, array $args, $field_args, CMB2_Field $field ) {
 		if ( in_array( $this->direction, array( '>', '<>' ) ) ) {
-			global $wpdb;
-			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET {$this->target} = %s WHERE ID = {$args['id']}", $args['value'] ) );
-
+			remove_filter( "cmb2_override_{$this->field_id}_meta_save", array( $this, 'save' ) );
+			wp_update_post( array( 'ID' => $args['id'], $this->target => $args['value'] ) );
 		}
 
 		// do override if sync, let run if write

@@ -10,7 +10,7 @@ function post_meta_boxes() {
 
 	$post_meta_box->add_field( array(
 		'name' => __( 'The post title', 'cmb2' ),
-		'id'   => cmb2_pipe('the_title','<>', 'post_title'),
+		'id'   => cmb2_pipe('the_title','<', 'post_title'),
 		'type' => 'text_small',
 	) );
 }
