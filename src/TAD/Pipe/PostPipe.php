@@ -22,10 +22,9 @@ class TAD_Pipe_PostPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeIn
 			return $override;
 		}
 
-		global $wpdb;
-		$value = $wpdb->get_var( "SELECT p.{$this->target} FROM $wpdb->posts p WHERE ID = {$args['id']}" );
+		$post = get_post( $args['id'], null, 'display' );
 
-		return empty( $value ) ? '' : $value;
+		return $post->{$this->target};
 	}
 
 	public function remove( $override, array $args, array $field_args, CMB2_Field $field ) {
