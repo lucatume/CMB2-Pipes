@@ -9,10 +9,8 @@ function post_meta_boxes() {
 	) );
 
 	$post_meta_box->add_field( array(
-		'name' => __( 'The post title', 'cmb2' ),
-		'id'   => cmb2_pipe('the_title','<', 'post_title'),
-		'type' => 'text_small',
+		'name' => __( 'The post date', 'cmb2' ),
+		'id'   => cmb2_pipe('the_date','<>', 'post_date'),
+		'type' => 'text_datetime_timestamp',
 	) );
 }
-
-

@@ -30,7 +30,7 @@ class TAD_Pipe_AbstractPipe {
 
 	public function set_target( $target ) {
 		$legit_targets = TAD_Pipe_Piper::get_legit_pipe_targets();
-		Arg::_( $target, 'Pipe target' )->is_string()->in( array_keys( $legit_targets ) );
+		Arg::_( $target, 'Pipe target' )->is_string();
 		$this->target = $target;
 	}
 }

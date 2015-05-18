@@ -10,7 +10,9 @@ class TAD_Pipe_PostPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeIn
 	public function save( $override, array $args, $field_args, CMB2_Field $field ) {
 		if ( in_array( $this->direction, array( '>', '<>' ) ) ) {
 			remove_filter( "cmb2_override_{$this->field_id}_meta_save", array( $this, 'save' ) );
-			wp_update_post( array( 'ID' => $args['id'], $this->target => $args['value'] ) );
+
+			$value = TAD_Pipe_PostFields::format_and_sanitize( $this->target, $args['value'] );
+			wp_update_post( array( 'ID' => $args['id'], $this->target => $value ) );
 		}
 
 		// do override if sync, let run if write
@@ -32,8 +34,8 @@ class TAD_Pipe_PostPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeIn
 			return $override;
 		}
 
-		global $wpdb;
-		$wpdb->query( "UPDATE $wpdb->posts SET {$this->target} = DEFAULT WHERE ID = {$args['id']}" );
+		remove_filter( "cmb2_override_{$this->field_id}_meta_remove", array( $this, 'remove' ) );
+		wp_update_post( array( 'ID' => $args['id'], $this->target => null ) );
 
 		// do override
 		return true;
