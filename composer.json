@@ -36,7 +36,8 @@
   },
   "autoload": {
     "psr-0": {
-      "TAD_Pipe_": "src/"
+      "TAD_Pipe_": "src/",
+      "CMB2_" : "../../../cmb2/includes"
     }
   }
 }

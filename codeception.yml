@@ -15,30 +15,30 @@ extensions:
 modules:
     config:
         Db:
-            dsn: 'mysql:host=localhost;dbname=wordpress-tests'
+            dsn: 'mysql:host=127.0.0.1;dbname=wordpress-tests'
             user: root
             password: root
             dump: tests/_data/dump.sql
         WPBrowser:
             url: 'http://wp.local'
             adminUsername: admin
-            adminPassword: admin
+            adminPassword: iguana
             adminUrl: /wp-admin
         WPDb:
-            dsn: 'mysql:host=localhost;dbname=wordpress-tests'
+            dsn: 'mysql:host=127.0.0.1;dbname=wordpress-tests'
             user: root
             password: root
             dump: tests/_data/dump.sql
             populate: true
-            cleanup: true
+            cleanup: false
             url: 'http://wp.local'
             tablePrefix: wp_
-            checkExistence: true
-            update: true
+            checkExistence: false
+            update: false
         WPLoader:
-            wpRootFolder: ~/www/wordpress
+            wpRootFolder: /Users/Luca/www/wp
             dbName: wordpress-tests
-            dbHost: localhost
+            dbHost: 127.0.0.1
             dbUser: root
             dbPassword: root
             wpDebug: true
@@ -57,5 +57,5 @@ modules:
             restart: true
             wait: 2
             adminUsername: admin
-            adminPassword: admin
+            adminPassword: iguana
             adminUrl: /wp-admin

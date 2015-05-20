@@ -143,12 +143,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "7088068c567a7a6f2eec6c67a3947933fcb117cf"
+                "reference": "4728d419010982edc68e4b3d90e9659cc9a99a67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/7088068c567a7a6f2eec6c67a3947933fcb117cf",
-                "reference": "7088068c567a7a6f2eec6c67a3947933fcb117cf",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/4728d419010982edc68e4b3d90e9659cc9a99a67",
+                "reference": "4728d419010982edc68e4b3d90e9659cc9a99a67",
                 "shasum": ""
             },
             "require": {
@@ -216,7 +216,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-05-13 20:53:42"
+            "time": "2015-05-17 18:06:49"
         },
         {
             "name": "doctrine/instantiator",
