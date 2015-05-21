@@ -9,11 +9,11 @@ class TAD_Pipe_PipeFactory {
 	protected static $instance;
 
 	public static function instance() {
-		if ( empty( static::$instance ) ) {
-			static::$instance = new static();
+		if ( empty( self::$instance ) ) {
+			self::$instance = new self();
 		}
 
-		return static::$instance;
+		return self::$instance;
 	}
 
 	public static function make( $target ) {
@@ -23,9 +23,9 @@ class TAD_Pipe_PipeFactory {
 		$type = $legit_targets[ $target ];
 		// `some-type` to `TAD_Pipe_SomeTypePipe`
 		$type       = str_replace( ' ', '_', ucwords( implode( ' ', preg_split( '/[-_\s]+/', $type ) ) ) );
-		$class_name = 'TAD_Pipe_' . $type. 'Pipe';
+		$class_name = 'TAD_Pipe_' . $type . 'Pipe';
 		if ( class_exists( $class_name ) ) {
-			return $class_name::instance();
+			return call_user_func( array( $class_name, 'instance' ) );
 		}
 
 		return false;
