@@ -38,6 +38,7 @@ class TAD_Pipe_PostFields {
 			return false;
 		}
 
+		return $value;
 	}
 
 	private function get_field_types() {
