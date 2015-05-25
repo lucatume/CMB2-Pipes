@@ -147,4 +147,51 @@ class PostPipingTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'Not overwritten', get_post_meta( $id, $field_id, true ) );
 	}
+
+	public function datePostFieldsInput() {
+		$timestamp      = time();
+		$formatted_time = ( new DateTime() )->setTimestamp( $timestamp )->format( 'Y-m-d H:i:s' );
+		$format1Date = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm/d/y' );
+		$format2Date = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm-d-y' );
+
+		return [
+			[ 'post_date', $timestamp, $formatted_time ],
+			[ 'post_date_gmt', $timestamp, $formatted_time ],
+			[ 'post_modified', $timestamp, $formatted_time ],
+			[ 'post_modified_gmt', $timestamp, $formatted_time ],
+			[ 'post_date', $format1Date, $formatted_time ],
+			[ 'post_date_gmt', $format1Date, $formatted_time ],
+			[ 'post_modified', $format1Date, $formatted_time ],
+			[ 'post_modified_gmt', $format1Date, $formatted_time ],
+		];
+	}
+
+	/**
+	 * @test
+	 * it should format dates modifying a date post field
+	 * @dataProvider datePostFieldsInput
+	 */
+	public function it_should_format_dates_modifying_a_date_post_field( $target_field, $in, $out ) {
+		$id       = $this->factory->post->create();
+		$field_id = 'a_field';
+		$args     = [
+			'object_id'   => $id,
+			'object_type' => 'post',
+			'field_args'  => [
+				'name' => __( 'A post field', 'cmb2' ),
+				'id'   => cmb2_pipe( $field_id, '<>', $target_field ),
+				'type' => 'text',
+			]
+		];
+		$field    = new CMB2_Field( $args );
+
+		$field->save_field( $in );
+
+		$post     = get_post( $id );
+		$expected = DateTime::createFromFormat( 'Y-m-d H:i:s', $out )->getTimestamp();
+		$stored   = DateTime::createFromFormat( 'Y-m-d H:i:s', $post->{$target_field} )->getTimestamp();
+		// might take some time, let's give it a 24h delta to cope with timezones
+		// I'm really testing the format here
+		$this->assertEquals( $expected, $stored, '', 86400 );
+	}
 }
