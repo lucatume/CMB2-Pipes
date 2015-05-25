@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "a00de77c030c6cdbd25547e3b6fdb299",
@@ -377,12 +377,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "dbbb91d7f6c191e5e405e900e3102ac7f261bc0b"
+                "reference": "9465032ac5d6beaa55f10923403e6e1c36018d9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/dbbb91d7f6c191e5e405e900e3102ac7f261bc0b",
-                "reference": "dbbb91d7f6c191e5e405e900e3102ac7f261bc0b",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/9465032ac5d6beaa55f10923403e6e1c36018d9c",
+                "reference": "9465032ac5d6beaa55f10923403e6e1c36018d9c",
                 "shasum": ""
             },
             "require": {
@@ -420,7 +420,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-05-20 03:37:09"
+            "time": "2015-05-21 17:23:02"
         },
         {
             "name": "guzzlehttp/streams",
@@ -524,12 +524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "c9f39b09095cb1e41650fdd22ec22537e4141c0d"
+                "reference": "5f1726b2e84f7ae492aa1e6d6819f3be3687053f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/c9f39b09095cb1e41650fdd22ec22537e4141c0d",
-                "reference": "c9f39b09095cb1e41650fdd22ec22537e4141c0d",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/5f1726b2e84f7ae492aa1e6d6819f3be3687053f",
+                "reference": "5f1726b2e84f7ae492aa1e6d6819f3be3687053f",
                 "shasum": ""
             },
             "require": {
@@ -573,7 +573,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2015-05-19 17:28:06"
+            "time": "2015-05-21 11:27:18"
         },
         {
             "name": "lucatume/wp-utils",
@@ -736,12 +736,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "9ef4b8cbf3e839a44a9b375d8c59e109ac7aa020"
+                "reference": "38c3ae610bcec110aa6bd18feed3d1970f2995f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/9ef4b8cbf3e839a44a9b375d8c59e109ac7aa020",
-                "reference": "9ef4b8cbf3e839a44a9b375d8c59e109ac7aa020",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/38c3ae610bcec110aa6bd18feed3d1970f2995f2",
+                "reference": "38c3ae610bcec110aa6bd18feed3d1970f2995f2",
                 "shasum": ""
             },
             "require": {
@@ -790,7 +790,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-05-09 04:40:58"
+            "time": "2015-05-25 05:10:17"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -982,12 +982,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac"
+                "reference": "57bf06dd4eebe2a5ced79a8de71509e7d5c18b25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3afe303d873a4d64c62ef84de491b97b006fbdac",
-                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/57bf06dd4eebe2a5ced79a8de71509e7d5c18b25",
+                "reference": "57bf06dd4eebe2a5ced79a8de71509e7d5c18b25",
                 "shasum": ""
             },
             "require": {
@@ -1046,7 +1046,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-04-29 15:18:52"
+            "time": "2015-05-25 05:18:18"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
