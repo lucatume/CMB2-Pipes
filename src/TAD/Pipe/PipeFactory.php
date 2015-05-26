@@ -3,6 +3,8 @@
 
 class TAD_Pipe_PipeFactory {
 
+	const P2P = 'p2p';
+
 	/**
 	 * @var static
 	 */
@@ -16,6 +18,11 @@ class TAD_Pipe_PipeFactory {
 		return self::$instance;
 	}
 
+	/**
+	 * @param $target
+	 *
+	 * @return bool|mixed
+	 */
 	public static function make( $target ) {
 		$legit_targets = TAD_Pipe_Piper::get_legit_pipe_targets();
 		Arg::_( $target, 'Pipe target' )->is_string()->in( array_keys( $legit_targets ) );

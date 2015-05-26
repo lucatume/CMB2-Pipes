@@ -1,8 +1,7 @@
 <?php
 
 
-class TAD_Pipe_PostPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeInterface {
-
+class TAD_Pipe_PostPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeInterface, TAD_Pipe_InstanceableInterface {
 
 	public static function instance() {
 		return new self;

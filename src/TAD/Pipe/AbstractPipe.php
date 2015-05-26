@@ -24,7 +24,6 @@ class TAD_Pipe_AbstractPipe {
 	}
 
 	public function set_direction( $direction ) {
-		Arg::_( $direction, 'Pipe direction' )->is_string()->in( '>', '<', '<>' );
 		$this->direction = $direction;
 	}
 

@@ -10,6 +10,12 @@ if ( ! function_exists( 'cmb2_pipe' ) ) {
 
 }
 
+if ( ! function_exists( 'cmb2_p2p_pipe' ) ) {
+	function cmb2_p2p_pipe( $field_id, $p2p_type ) {
+		return TAD_Pipe_Piper::pipe( $field_id, $p2p_type, TAD_Pipe_PipeFactory::P2P );
+	}
+}
+
 /**
  * Checks if a string is a valid timestamp.
  *
