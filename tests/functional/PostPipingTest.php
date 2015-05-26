@@ -151,8 +151,8 @@ class PostPipingTest extends \WP_UnitTestCase {
 	public function datePostFieldsInput() {
 		$timestamp      = time();
 		$formatted_time = ( new DateTime() )->setTimestamp( $timestamp )->format( 'Y-m-d H:i:s' );
-		$format1Date = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm/d/y' );
-		$format2Date = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm-d-y' );
+		$format1Date    = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm/d/y' );
+		$format2Date    = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm-d-y' );
 
 		return [
 			[ 'post_date', $timestamp, $formatted_time ],
@@ -180,7 +180,7 @@ class PostPipingTest extends \WP_UnitTestCase {
 			'field_args'  => [
 				'name' => __( 'A post field', 'cmb2' ),
 				'id'   => cmb2_pipe( $field_id, '<>', $target_field ),
-				'type' => 'text',
+				'type' => 'text'
 			]
 		];
 		$field    = new CMB2_Field( $args );
@@ -193,5 +193,98 @@ class PostPipingTest extends \WP_UnitTestCase {
 		// might take some time, let's give it a 24h delta to cope with timezones
 		// I'm really testing the format here
 		$this->assertEquals( $expected, $stored, '', 86400 );
+	}
+
+	/**
+	 * @test
+	 * it should not allow repeatable fields to write to post fields
+	 */
+	public function it_should_not_allow_repeatable_fields_to_write_to_post_fields() {
+		$id       = $this->factory->post->create( [ 'post_title' => 'Original title' ] );
+		$field_id = 'a_field';
+		$args     = [
+			'object_id'   => $id,
+			'object_type' => 'post',
+			'field_args'  => [
+				'name'       => __( 'A post field', 'cmb2' ),
+				'id'         => cmb2_pipe( $field_id, '<>', 'post_title' ),
+				'type'       => 'text',
+				'repeatable' => true
+			]
+		];
+		$value    = [ 'First title', 'Second title' ];
+		$field    = new CMB2_Field( $args );
+
+		$this->setExpectedException( 'InvalidArgumentException' );
+
+		$field->save_field( $value );
+	}
+
+	/**
+	 * @test
+	 * it should throw when trying to write to non existing post field
+	 */
+	public function it_should_throw_when_trying_to_write_to_non_existing_post_field() {
+		$id       = $this->factory->post->create( [ 'post_title' => 'Original title' ] );
+		$field_id = 'a_field';
+
+		$this->setExpectedException( 'InvalidArgumentException' );
+
+		$args = [
+			'object_id'   => $id,
+			'object_type' => 'post',
+			'field_args'  => [
+				'name' => __( 'A post field', 'cmb2' ),
+				'id'   => cmb2_pipe( $field_id, '<>', 'non_existing_field' ),
+				'type' => 'text'
+			]
+		];
+	}
+
+	public function fieldDefaults() {
+		$defaults = array(
+			'post_status'           => 'draft',
+			'post_type'             => 'post',
+			'post_author'           => get_current_user_id(),
+			'ping_status'           => get_option( 'default_ping_status' ),
+			'post_parent'           => 0,
+			'menu_order'            => 0,
+			'to_ping'               => '',
+			'pinged'                => '',
+			'post_password'         => '',
+			'post_content_filtered' => '',
+			'post_excerpt'          => '',
+			'post_content'          => '',
+			'post_title'            => ''
+		);
+
+		return array_map( function ( $key, $value ) {
+			return [ $key, $value ];
+		}, array_keys( $defaults ), $defaults );
+	}
+
+	/**
+	 * @test
+	 * it should set the post field to default value when removing field
+	 * @dataProvider fieldDefaults
+	 */
+	public function it_should_set_the_post_field_to_default_value_when_removing_field( $post_field, $default ) {
+		$id    = $this->factory->post->create();
+		$args  = [
+			'object_id'   => $id,
+			'object_type' => 'post',
+			'field_args'  => [
+				'name'       => __( 'A post field', 'cmb2' ),
+				'id'         => cmb2_pipe( 'a_field', '>', $post_field ),
+				'type'       => 'text',
+				'repeatable' => true
+			]
+		];
+		$field = new CMB2_Field( $args );
+
+		$field->save_field( '' );
+
+		$post = get_post( $id );
+		$this->assertEquals( $default, $post->{$post_field} );
 	}
 }

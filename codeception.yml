@@ -12,10 +12,14 @@ settings:
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
+coverage:
+    enabled: true
+    include:
+        - src/*
 modules:
     config:
         Db:
-            dsn: 'mysql:host=127.0.0.1;dbname=wordpress-tests'
+            dsn: 'mysql:host=127.0.0.1;dbname=wp-tests'
             user: root
             password: root
             dump: tests/_data/dump.sql
@@ -25,7 +29,7 @@ modules:
             adminPassword: iguana
             adminUrl: /wp-admin
         WPDb:
-            dsn: 'mysql:host=127.0.0.1;dbname=wordpress-tests'
+            dsn: 'mysql:host=127.0.0.1;dbname=wp-tests'
             user: root
             password: root
             dump: tests/_data/dump.sql
@@ -37,7 +41,7 @@ modules:
             update: false
         WPLoader:
             wpRootFolder: /Users/Luca/www/wp
-            dbName: wordpress-tests
+            dbName: wp-tests
             dbHost: 127.0.0.1
             dbUser: root
             dbPassword: root
