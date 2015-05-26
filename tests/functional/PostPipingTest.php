@@ -215,9 +215,29 @@ class PostPipingTest extends \WP_UnitTestCase {
 		$value    = [ 'First title', 'Second title' ];
 		$field    = new CMB2_Field( $args );
 
-		$field->save_field( $value );
+		$this->setExpectedException( 'InvalidArgumentException' );
 
-		$post = get_post( $id );
-		$this->assertEquals( 'Original title', $post->post_title );
+		$field->save_field( $value );
+	}
+
+	/**
+	 * @test
+	 * it should throw when trying to write to non existing post field
+	 */
+	public function it_should_throw_when_trying_to_write_to_non_existing_post_field() {
+		$id       = $this->factory->post->create( [ 'post_title' => 'Original title' ] );
+		$field_id = 'a_field';
+
+		$this->setExpectedException( 'InvalidArgumentException' );
+
+		$args = [
+			'object_id'   => $id,
+			'object_type' => 'post',
+			'field_args'  => [
+				'name' => __( 'A post field', 'cmb2' ),
+				'id'   => cmb2_pipe( $field_id, '<>', 'non_existing_field' ),
+				'type' => 'text'
+			]
+		];
 	}
 }

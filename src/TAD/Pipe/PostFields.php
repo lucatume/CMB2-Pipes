@@ -6,9 +6,14 @@ class TAD_Pipe_PostFields {
 	const INVALID = 'invalid';
 
 	/**
-	 * @var static
+	 * @var self
 	 */
 	protected static $instance;
+
+	/**
+	 * @var bool Whether the class should throw exceptions or not.
+	 */
+	protected $should_throw;
 
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
@@ -25,24 +30,17 @@ class TAD_Pipe_PostFields {
 	}
 
 	public static function format_and_sanitize( $field, $value ) {
-		if ( is_array( $value ) ) {
-			return self::INVALID;
-		}
+
+		Arg::_( $value, 'Value' )->not()->is_array();
 
 		$types = self::instance()->get_field_types();
 
-		if ( ! array_key_exists( $field, $types ) ) {
-			return self::INVALID;
-		}
+		Arg::_( $field, 'Post field' )->in( array_keys( $types ) );
 
-		try {
-			$value = empty( $types[ $field ] ) ? $value : call_user_func( array(
-				self::instance(),
-				$types[ $field ]
-			), $value );
-		} catch ( Exception $e ) {
-			return self::INVALID;
-		}
+		$value = empty( $types[ $field ] ) ? $value : call_user_func( array(
+			self::instance(),
+			$types[ $field ]
+		), $value );
 
 		return $value;
 	}
@@ -72,5 +70,9 @@ class TAD_Pipe_PostFields {
 			'post_mime_type'        => false,
 			'comment_count'         => false
 		);
+	}
+
+	public function should_throw( $bool ) {
+		$this->should_throw = (bool) $bool;
 	}
 }
