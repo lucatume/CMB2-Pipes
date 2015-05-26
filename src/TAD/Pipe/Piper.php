@@ -3,8 +3,12 @@
 
 class TAD_Pipe_Piper {
 
-	public static function pipe( $field_id, $direction, $target ) {
-		$pipe = TAD_Pipe_PipeFactory::make( $target );
+	public static function pipe( $field_id, $direction, $target, $type = null ) {
+		if ( empty( $type ) ) {
+			$pipe = TAD_Pipe_PipeFactory::make( $target );
+		} else {
+			$pipe = TAD_Pipe_PipeFactory::make( $type );
+		}
 
 		if ( ! $pipe ) {
 			return $field_id;

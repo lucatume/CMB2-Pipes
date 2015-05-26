@@ -3,8 +3,6 @@
 
 class TAD_Pipe_PipeFactory {
 
-	const P2P = 'p2p';
-
 	/**
 	 * @var static
 	 */

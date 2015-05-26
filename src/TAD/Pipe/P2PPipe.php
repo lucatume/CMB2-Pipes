@@ -10,9 +10,13 @@ class TAD_Pipe_P2PPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeInt
 	public function save( $override, array $args, $field_args, CMB2_Field $field ) {
 		Arg::_( $args['value'], 'Value' )->is_array()->_or()->is_numeric();
 
+		if ( $this->direction == '<' ) {
+			return;
+		}
+
 		$value = is_array( $args['value'] ) ? $args['value'] : array( $args['value'] );
 
-		$p2p_type = p2p_type( $this->direction );
+		$p2p_type = p2p_type( $this->target );
 
 		if ( empty( $p2p_type ) ) {
 			return;
