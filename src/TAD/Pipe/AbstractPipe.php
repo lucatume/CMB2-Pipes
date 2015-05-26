@@ -1,7 +1,7 @@
 <?php
 
 
-class TAD_Pipe_AbstractPipe {
+class TAD_Pipe_AbstractPipe implements TAD_Pipe_SettablePropertiesInterface {
 
 	/**
 	 * @var string
@@ -24,7 +24,6 @@ class TAD_Pipe_AbstractPipe {
 	}
 
 	public function set_direction( $direction ) {
-		Arg::_( $direction, 'Pipe direction' )->is_string()->in( '>', '<', '<>' );
 		$this->direction = $direction;
 	}
 
@@ -32,5 +31,9 @@ class TAD_Pipe_AbstractPipe {
 		$legit_targets = TAD_Pipe_Piper::get_legit_pipe_targets();
 		Arg::_( $target, 'Pipe target' )->is_string();
 		$this->target = $target;
+	}
+
+	public function set( $property, $value ) {
+		$this->{$property} = $value;
 	}
 }
