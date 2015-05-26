@@ -151,8 +151,8 @@ class PostPipingTest extends \WP_UnitTestCase {
 	public function datePostFieldsInput() {
 		$timestamp      = time();
 		$formatted_time = ( new DateTime() )->setTimestamp( $timestamp )->format( 'Y-m-d H:i:s' );
-		$format1Date = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm/d/y' );
-		$format2Date = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm-d-y' );
+		$format1Date    = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm/d/y' );
+		$format2Date    = ( new DateTime() )->setTimestamp( $timestamp )->format( 'm-d-y' );
 
 		return [
 			[ 'post_date', $timestamp, $formatted_time ],
@@ -180,7 +180,7 @@ class PostPipingTest extends \WP_UnitTestCase {
 			'field_args'  => [
 				'name' => __( 'A post field', 'cmb2' ),
 				'id'   => cmb2_pipe( $field_id, '<>', $target_field ),
-				'type' => 'text',
+				'type' => 'text'
 			]
 		];
 		$field    = new CMB2_Field( $args );
@@ -193,5 +193,31 @@ class PostPipingTest extends \WP_UnitTestCase {
 		// might take some time, let's give it a 24h delta to cope with timezones
 		// I'm really testing the format here
 		$this->assertEquals( $expected, $stored, '', 86400 );
+	}
+
+	/**
+	 * @test
+	 * it should not allow repeatable fields to write to post fields
+	 */
+	public function it_should_not_allow_repeatable_fields_to_write_to_post_fields() {
+		$id       = $this->factory->post->create( [ 'post_title' => 'Original title' ] );
+		$field_id = 'a_field';
+		$args     = [
+			'object_id'   => $id,
+			'object_type' => 'post',
+			'field_args'  => [
+				'name'       => __( 'A post field', 'cmb2' ),
+				'id'         => cmb2_pipe( $field_id, '<>', 'post_title' ),
+				'type'       => 'text',
+				'repeatable' => true
+			]
+		];
+		$value    = [ 'First title', 'Second title' ];
+		$field    = new CMB2_Field( $args );
+
+		$field->save_field( $value );
+
+		$post = get_post( $id );
+		$this->assertEquals( 'Original title', $post->post_title );
 	}
 }

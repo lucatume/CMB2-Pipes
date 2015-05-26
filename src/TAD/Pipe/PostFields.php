@@ -3,6 +3,8 @@
 
 class TAD_Pipe_PostFields {
 
+	const INVALID = 'invalid';
+
 	/**
 	 * @var static
 	 */
@@ -23,10 +25,14 @@ class TAD_Pipe_PostFields {
 	}
 
 	public static function format_and_sanitize( $field, $value ) {
+		if ( is_array( $value ) ) {
+			return self::INVALID;
+		}
+
 		$types = self::instance()->get_field_types();
 
 		if ( ! array_key_exists( $field, $types ) ) {
-			return false;
+			return self::INVALID;
 		}
 
 		try {
@@ -35,7 +41,7 @@ class TAD_Pipe_PostFields {
 				$types[ $field ]
 			), $value );
 		} catch ( Exception $e ) {
-			return false;
+			return self::INVALID;
 		}
 
 		return $value;
