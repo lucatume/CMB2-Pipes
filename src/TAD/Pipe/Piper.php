@@ -3,7 +3,7 @@
 
 class TAD_Pipe_Piper {
 
-	public static function pipe( $field_id, $direction, $target, $type = null ) {
+	public static function pipe( $field_id, $direction, $target, $type = null, array $args = null ) {
 		if ( empty( $type ) ) {
 			$pipe = TAD_Pipe_PipeFactory::make( $target );
 		} else {
@@ -17,6 +17,12 @@ class TAD_Pipe_Piper {
 		$pipe->set_field_id( $field_id );
 		$pipe->set_direction( $direction );
 		$pipe->set_target( $target );
+
+		if ( ! empty( $args ) ) {
+			foreach ( $args as $key => $value ) {
+				$pipe->set( $key, $value );
+			}
+		}
 
 		self::hooks( $field_id, $pipe );
 

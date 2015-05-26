@@ -240,4 +240,51 @@ class PostPipingTest extends \WP_UnitTestCase {
 			]
 		];
 	}
+
+	public function fieldDefaults() {
+		$defaults = array(
+			'post_status'           => 'draft',
+			'post_type'             => 'post',
+			'post_author'           => get_current_user_id(),
+			'ping_status'           => get_option( 'default_ping_status' ),
+			'post_parent'           => 0,
+			'menu_order'            => 0,
+			'to_ping'               => '',
+			'pinged'                => '',
+			'post_password'         => '',
+			'post_content_filtered' => '',
+			'post_excerpt'          => '',
+			'post_content'          => '',
+			'post_title'            => ''
+		);
+
+		return array_map( function ( $key, $value ) {
+			return [ $key, $value ];
+		}, array_keys( $defaults ), $defaults );
+	}
+
+	/**
+	 * @test
+	 * it should set the post field to default value when removing field
+	 * @dataProvider fieldDefaults
+	 */
+	public function it_should_set_the_post_field_to_default_value_when_removing_field( $post_field, $default ) {
+		$id    = $this->factory->post->create();
+		$args  = [
+			'object_id'   => $id,
+			'object_type' => 'post',
+			'field_args'  => [
+				'name'       => __( 'A post field', 'cmb2' ),
+				'id'         => cmb2_pipe( 'a_field', '>', $post_field ),
+				'type'       => 'text',
+				'repeatable' => true
+			]
+		];
+		$field = new CMB2_Field( $args );
+
+		$field->save_field( '' );
+
+		$post = get_post( $id );
+		$this->assertEquals( $default, $post->{$post_field} );
+	}
 }

@@ -11,8 +11,8 @@ if ( ! function_exists( 'cmb2_pipe' ) ) {
 }
 
 if ( ! function_exists( 'cmb2_p2p_pipe' ) ) {
-	function cmb2_p2p_pipe( $field_id, $direction, $p2p_type ) {
-		return TAD_Pipe_Piper::pipe( $field_id, $direction, $p2p_type, 'p2p' );
+	function cmb2_p2p_pipe( $field_id, $direction, $p2p_type, $connection_direction = 'from' ) {
+		return TAD_Pipe_Piper::pipe( $field_id, $direction, $p2p_type, 'p2p', array( 'connection_direction' => $connection_direction ) );
 	}
 }
 
