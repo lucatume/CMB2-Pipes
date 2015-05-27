@@ -10,7 +10,7 @@ class TAD_Pipe_P2PPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeInt
 	public function save( $override, array $args, $field_args, CMB2_Field $field ) {
 		Arg::_( $args['value'], 'Value' )->is_array()->_or()->is_numeric();
 
-		if ( $this->direction == '<' ) {
+		if ( $this->direction_is_read() ) {
 			return;
 		}
 
@@ -34,11 +34,11 @@ class TAD_Pipe_P2PPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeInt
 			}
 		}
 
-		return $this->direction == '>' ? $override : true;
+		return $this->direction_is_write() ? $override : true;
 	}
 
 	public function value( $override, $object_id, array $args, CMB2_Field $field ) {
-		if ( $this->direction == '>' ) {
+		if ( $this->direction_is_write() ) {
 			return $override;
 		}
 
@@ -55,7 +55,7 @@ class TAD_Pipe_P2PPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeInt
 	}
 
 	public function remove( $override, array $args, array $field_args, CMB2_Field $field ) {
-		if ( $this->direction == '<' ) {
+		if ( $this->direction_is_read() ) {
 			return;
 		}
 
@@ -72,4 +72,5 @@ class TAD_Pipe_P2PPipe extends TAD_Pipe_AbstractPipe implements TAD_Pipe_PipeInt
 
 		return $connection_direction;
 	}
+
 }

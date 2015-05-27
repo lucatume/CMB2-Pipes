@@ -9,7 +9,7 @@ class TAD_Pipe_AbstractPipe implements TAD_Pipe_SettablePropertiesInterface {
 	protected $field_id;
 
 	/**
-	 * @var string
+	 * @var array
 	 */
 	protected $direction;
 
@@ -24,7 +24,10 @@ class TAD_Pipe_AbstractPipe implements TAD_Pipe_SettablePropertiesInterface {
 	}
 
 	public function set_direction( $direction ) {
-		$this->direction = $direction;
+		if ( $direction == '<>' ) {
+			$direction = array( '<' => '', '>' => '' );
+		}
+		$this->direction = is_array( $direction ) ? $direction : array( $direction => '' );
 	}
 
 	public function set_target( $target ) {
@@ -35,5 +38,55 @@ class TAD_Pipe_AbstractPipe implements TAD_Pipe_SettablePropertiesInterface {
 
 	public function set( $property, $value ) {
 		$this->{$property} = $value;
+	}
+
+	protected function direction_is_read() {
+		return in_array( '<', array_keys( $this->direction ) ) && ! in_array( '>', array_keys( $this->direction ) );
+	}
+
+	protected function direction_is_write() {
+		return in_array( '>', array_keys( $this->direction ) ) && ! in_array( '<', array_keys( $this->direction ) );
+	}
+
+	protected function direction_is_read_and_write() {
+		return in_array( '<', array_keys( $this->direction ) ) && in_array( '>', array_keys( $this->direction ) );
+	}
+
+	protected function has_write_filter() {
+		return array_key_exists( '>', $this->direction ) && ! empty( $this->direction['>'] );
+	}
+
+	protected function has_read_filter() {
+		return array_key_exists( '<', $this->direction ) && ! empty( $this->direction['<'] );
+	}
+
+	protected function get_write_filter() {
+		return $this->direction['>'];
+	}
+
+	protected function get_read_filter() {
+		return $this->direction['<'];
+	}
+
+	protected function maybe_apply_write_filter( $value ) {
+		if ( $this->has_write_filter() ) {
+			$filter = $this->get_write_filter();
+			$value    = call_user_func( $filter, $value );
+
+			return $value;
+		}
+
+		return $value;
+	}
+
+	protected function maybe_apply_read_filter( $value ) {
+		if ( $this->has_read_filter() ) {
+			$filter = $this->get_read_filter();
+			$value    = call_user_func( $filter, $value );
+
+			return $value;
+		}
+
+		return $value;
 	}
 }
