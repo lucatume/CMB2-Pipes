@@ -41,11 +41,11 @@ class TAD_Pipe_AbstractPipe implements TAD_Pipe_SettablePropertiesInterface {
 	}
 
 	protected function direction_is_read() {
-		return in_array( '<', array_keys( $this->direction ) ) && ! in_array( '>', array_keys( $this->direction ) );
+		return in_array( '<', array_keys( $this->direction ) );
 	}
 
 	protected function direction_is_write() {
-		return in_array( '>', array_keys( $this->direction ) ) && ! in_array( '<', array_keys( $this->direction ) );
+		return in_array( '>', array_keys( $this->direction ) );
 	}
 
 	protected function direction_is_read_and_write() {
@@ -71,7 +71,7 @@ class TAD_Pipe_AbstractPipe implements TAD_Pipe_SettablePropertiesInterface {
 	protected function maybe_apply_write_filter( $value ) {
 		if ( $this->has_write_filter() ) {
 			$filter = $this->get_write_filter();
-			$value    = call_user_func( $filter, $value );
+			$value  = call_user_func( $filter, $value );
 
 			return $value;
 		}
@@ -82,7 +82,7 @@ class TAD_Pipe_AbstractPipe implements TAD_Pipe_SettablePropertiesInterface {
 	protected function maybe_apply_read_filter( $value ) {
 		if ( $this->has_read_filter() ) {
 			$filter = $this->get_read_filter();
-			$value    = call_user_func( $filter, $value );
+			$value  = call_user_func( $filter, $value );
 
 			return $value;
 		}
