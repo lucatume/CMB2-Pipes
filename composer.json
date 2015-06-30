@@ -11,10 +11,6 @@
   ],
   "minimum-stability": "dev",
   "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/lucatume/args"
-    }
   ],
   "require": {
     "xrstf/composer-php52": "dev-default",
