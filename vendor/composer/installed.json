@@ -1,0 +1,78 @@
+[
+    {
+        "name": "xrstf/composer-php52",
+        "version": "dev-default",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "hg",
+            "url": "https://bitbucket.org/xrstf/composer-php52",
+            "reference": "717c00a8bec1b40401384536d2ebaea57c7c35d4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://bitbucket.org/xrstf/composer-php52/get/717c00a8bec1b40401384536d2ebaea57c7c35d4.zip",
+            "reference": "717c00a8bec1b40401384536d2ebaea57c7c35d4",
+            "shasum": ""
+        },
+        "time": "2015-02-01 14:29:12",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-default": "1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "xrstf\\Composer52": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "homepage": "http://www.xrstf.de/"
+    },
+    {
+        "name": "lucatume/args",
+        "version": "0.1.9",
+        "version_normalized": "0.1.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lucatume/args.git",
+            "reference": "98bf6845df82108d358e02c9750eb2f4d88f2af2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lucatume/args/zipball/98bf6845df82108d358e02c9750eb2f4d88f2af2",
+            "reference": "98bf6845df82108d358e02c9750eb2f4d88f2af2",
+            "shasum": ""
+        },
+        "require": {
+            "xrstf/composer-php52": "1.*"
+        },
+        "require-dev": {
+            "codeception/codeception": "*"
+        },
+        "time": "2015-05-17 09:03:11",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Arg": "src/",
+                "tad_": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL2"
+        ],
+        "authors": [
+            {
+                "name": "Luca Tumedei",
+                "email": "luca@theaveragedev.com"
+            }
+        ],
+        "description": "A PHP 5.2 compatible arguments handling library."
+    }
+]
