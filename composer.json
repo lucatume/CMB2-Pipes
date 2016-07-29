@@ -13,11 +13,11 @@
   "repositories": [
   ],
   "require": {
-    "xrstf/composer-php52": "dev-default",
+    "xrstf/composer-php52": "~1.0",
     "lucatume/args": "~0.1.9"
   },
   "require-dev": {
-    "lucatume/wp-browser": "dev-master"
+    "lucatume/wp-browser": "~1.15"
   },
   "scripts": {
     "post-install-cmd": [
