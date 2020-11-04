@@ -14,7 +14,7 @@
   ],
   "require": {
     "xrstf/composer-php52": "~1.0",
-    "lucatume/args": "~1.0.1"
+    "lucatume/args": "0.1.9"
   },
   "require-dev": {
     "lucatume/wp-browser": "~1.15"
